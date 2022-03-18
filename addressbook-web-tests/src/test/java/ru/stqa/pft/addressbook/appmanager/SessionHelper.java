@@ -12,10 +12,10 @@ public class SessionHelper extends HelperBase{
     public void login(String username, String password) {
         type(By.name("user"), username);
         type(By.name("pass"), password);
-        click(By.id("LoginForm"));
+        submit(By.id("LoginForm"));
     }
 
     public void logout() {
-        wd.findElement(By.linkText("Logout")).click();
+        click(By.linkText("Logout"));
     }
 }
