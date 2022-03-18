@@ -36,6 +36,21 @@ public class ContactHelper extends HelperBase{
     }
 
     public void selectContact() {
+        if (! isElementPresent(By.name("selected[]"))) {
+            initContactCreation();
+            fillContactForm(
+                    new ContactData(
+                            "Firstname",
+                            "Middlename",
+                            "Lastname",
+                            "Address",
+                            "MobilePhone",
+                            "Email",
+                            "Test1"),
+                    true);
+            submitContactCreation();
+            goToHomePage();
+        }
         click(By.name("selected[]"));
     }
 
@@ -45,10 +60,29 @@ public class ContactHelper extends HelperBase{
     }
 
     public void initContactModification() {
+        if (! isElementPresent(By.xpath("//img[@alt='Edit']"))){
+            initContactCreation();
+            fillContactForm(
+                    new ContactData(
+                            "Firstname",
+                            "Middlename",
+                            "Lastname",
+                            "Address",
+                            "MobilePhone",
+                            "Email",
+                            "Test1"),
+                    true);
+            submitContactCreation();
+            goToHomePage();
+        }
         click(By.xpath("//img[@alt='Edit']"));
     }
 
     public void submitContactModification() {
         click(By.name("update"));
+    }
+
+    public void goToHomePage() {
+        click(By.linkText("home"));
     }
 }

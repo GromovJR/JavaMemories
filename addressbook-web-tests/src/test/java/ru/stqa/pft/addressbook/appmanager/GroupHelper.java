@@ -29,6 +29,13 @@ public class GroupHelper extends HelperBase {
     }
 
     public void selectGroup() {
+        if (! isElementPresent(By.name("selected[]"))) {
+            goToGroupPage();
+            initGroupCreation();
+            fillGroupForm(new GroupData("Test1", null, null));
+            submitGroupCreation();
+            goToGroupPage();
+        }
         click(By.name("selected[]"));
     }
 
@@ -36,7 +43,11 @@ public class GroupHelper extends HelperBase {
         click(By.name("edit"));
     }
 
-    public void sumbitGropModification() {
+    private void goToGroupPage() {
+        click(By.linkText("groups"));
+    }
+
+    public void submitGroupModification() {
         click(By.name("update"));
     }
 }
