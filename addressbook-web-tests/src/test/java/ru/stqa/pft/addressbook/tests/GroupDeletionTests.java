@@ -8,10 +8,16 @@ import java.util.List;
 
 public class GroupDeletionTests extends TestBase {
 
+  @BeforeMethod
+  public void ensurePreconditions() {
+    app.getNavigationHelper().goToGroupPage();
+    if (! app.getContactHelper().tryToSearchContact()) {
+      app.getGroupHelper().createGroup(new GroupData("GroupName", null, null));
+    }
+  }
+
   @Test
   public void testGroupDeletion() throws Exception {
-    app.getNavigationHelper().goToGroupPage();
-
     List<GroupData> before = app.getGroupHelper().getGroupList();
 
     app.getGroupHelper().selectGroup(before.size() - 1);

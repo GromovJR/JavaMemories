@@ -10,11 +10,9 @@ import java.util.List;
 
 public class ContactCreationTests extends TestBase {
 
-  @Test
+  @Test(enabled = false)
   public void testContactCreation() throws Exception {
     List<ContactData> before = app.getContactHelper().getContactList();
-
-    app.getContactHelper().initContactCreation();
     ContactData contact = new ContactData(
             "Firstname",
             "Lastname",
@@ -22,11 +20,8 @@ public class ContactCreationTests extends TestBase {
             "MobilePhone",
             "Email",
             "Test1");
-    app.getContactHelper().fillContactForm(
-            contact,
-            true);
-    app.getContactHelper().submitContactCreation();
-    app.getNavigationHelper().goToHomePage();
+
+    app.getContactHelper().createContact(contact, true);
 
     List<ContactData> after = app.getContactHelper().getContactList();
     Assert.assertEquals(after.size(), before.size() + 1);

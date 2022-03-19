@@ -33,13 +33,6 @@ public class GroupHelper extends HelperBase {
     }
 
     public void selectGroup(int index) {
-        if (! isElementPresent(By.name("selected[]"))) {
-            goToGroupPage();
-            initGroupCreation();
-            fillGroupForm(new GroupData( "Test1", null, null));
-            submitGroupCreation();
-            goToGroupPage();
-        }
         wd.findElements(By.name("selected[]")).get(index).click();
     }
 
@@ -47,12 +40,32 @@ public class GroupHelper extends HelperBase {
         click(By.name("edit"));
     }
 
-    private void goToGroupPage() {
+    public void goToGroupPage() {
         click(By.linkText("groups"));
     }
 
     public void submitGroupModification() {
         click(By.name("update"));
+    }
+
+    public void createGroup(GroupData groupData) {
+        initGroupCreation();
+        fillGroupForm(groupData);
+        submitGroupCreation();
+        goToGroupPage();
+    }
+
+    public void modifyGroup(int index, GroupData groupData) {
+        selectGroup(index);
+        initGroupModification();
+        fillGroupForm(groupData);
+        submitGroupModification();
+        goToGroupPage();
+
+    }
+
+    public boolean tryToSearchGroup() {
+        return isElementPresent(By.name("selected[]"));
     }
 
     public int getGroupCount() {
