@@ -20,7 +20,7 @@ public class ContactModificationTests extends TestBase{
         }
     }
 
-    @Test(enabled = true)
+    @Test(enabled = false)
     public void testContactModification() {
         ContactData contact = new ContactData()
                 .withFirstname("Firstname").withLastname("Lastname")
@@ -42,6 +42,5 @@ public class ContactModificationTests extends TestBase{
         before.sort(byId);
         after.sort(byId);
         Assert.assertEquals(before, after);
-
     }
 }
