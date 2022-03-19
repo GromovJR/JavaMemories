@@ -37,8 +37,9 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//div[@id='content']/form/input[21]"));
     }
 
-    public void select() {
-        click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td/input"));
+    public void select(int index) {
+        wd.findElements(By.xpath("//table[@id='maintable']/tbody/tr[2]/td/input")).get(index).click();
+       // click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td/input"));
     }
 
     public void deleteSelected() {
@@ -46,8 +47,9 @@ public class ContactHelper extends HelperBase {
         wd.switchTo().alert().accept();
     }
 
-    public void initModification() {
-        click(By.xpath("//img[@alt='Edit']"));
+    public void initModification(int index) {
+        wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
+        //click(By.xpath("//img[@alt='Edit']"));
     }
 
     public void submitModification() {
@@ -72,8 +74,8 @@ public class ContactHelper extends HelperBase {
         goToHomePage();
     }
 
-    public void modify(ContactData contactData, boolean creation) {
-        initModification();
+    public void modify(int index, ContactData contactData, boolean creation) {
+        initModification(index);
         fillForm(contactData, creation);
         submitModification();
         goToHomePage();
@@ -87,21 +89,17 @@ public class ContactHelper extends HelperBase {
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
             String lastname = cells.get(1).getText();
             String firstname = cells.get(2).getText();
-            ContactData contact = new ContactData(
-                    id,
-                    firstname,
-                    lastname,
-                    null,
-                    null,
-                    null,
-                    null);
+            ContactData contact = new ContactData()
+                    .withId(id)
+                    .withFirstname(firstname)
+                    .withLastname(lastname);
             contacts.add(contact);
         }
         return contacts;
     }
 
-    public void delete() {
-        select();
+    public void delete(int index) {
+        select(index);
         deleteSelected();
         goToHomePage();
     }

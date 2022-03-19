@@ -9,16 +9,13 @@ import java.util.List;
 
 public class ContactCreationTests extends TestBase {
 
-  @Test(enabled = false)
+  @Test(enabled = true)
   public void testContactCreation() throws Exception {
     List<ContactData> before = app.contact().list();
-    ContactData contact = new ContactData(
-            "Firstname",
-            "Lastname",
-            "Address",
-            "MobilePhone",
-            "Email",
-            "Test1");
+    ContactData contact = new ContactData()
+            .withFirstname("Firstname").withLastname("Lastname")
+            .withAddress("Address").withMobilePhone("MobilePhone")
+            .withEmail("Email").withGroup("Test1");
 
     app.contact().create(contact, true);
 
