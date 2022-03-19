@@ -15,11 +15,11 @@ public class ContactHelper extends HelperBase {
         super(wd);
     }
 
-    public void initContactCreation() {
+    public void initCreation() {
         click(By.linkText("add new"));
     }
 
-    public void fillContactForm(ContactData contactData, boolean creation) {
+    public void fillForm(ContactData contactData, boolean creation) {
         type(By.name("firstname"), contactData.getFirstname());
         type(By.name("lastname"), contactData.getLastname());
         type(By.name("address"), contactData.getAddress());
@@ -33,24 +33,24 @@ public class ContactHelper extends HelperBase {
         }
     }
 
-    public void submitContactCreation() {
+    public void submitCreation() {
         click(By.xpath("//div[@id='content']/form/input[21]"));
     }
 
-    public void selectContact() {
+    public void select() {
         click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td/input"));
     }
 
-    public void deleteSelectedContacts() {
+    public void deleteSelected() {
         click(By.xpath("//input[@value='Delete']"));
         wd.switchTo().alert().accept();
     }
 
-    public void initContactModification() {
+    public void initModification() {
         click(By.xpath("//img[@alt='Edit']"));
     }
 
-    public void submitContactModification() {
+    public void submitModification() {
         click(By.name("update"));
     }
 
@@ -58,28 +58,28 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("home"));
     }
 
-    public boolean tryToSearchContact() {
+    public boolean tryToSearch() {
         return isElementPresent(By.name("selected[]"));
 
     }
 
-    public void createContact(ContactData contact, boolean creation) {
-        initContactCreation();
-        fillContactForm(
+    public void create(ContactData contact, boolean creation) {
+        initCreation();
+        fillForm(
                 contact,
                 creation);
-        submitContactCreation();
+        submitCreation();
         goToHomePage();
     }
 
-    public void modifyContact(ContactData contactData, boolean creation) {
-        initContactModification();
-        fillContactForm(contactData, creation);
-        submitContactModification();
+    public void modify(ContactData contactData, boolean creation) {
+        initModification();
+        fillForm(contactData, creation);
+        submitModification();
         goToHomePage();
     }
 
-    public List<ContactData> getContactList() {
+    public List<ContactData> list() {
         List<ContactData> contacts = new ArrayList<>();
         List<WebElement> elements = wd.findElements(By.name("entry"));
         for (WebElement element : elements) {
