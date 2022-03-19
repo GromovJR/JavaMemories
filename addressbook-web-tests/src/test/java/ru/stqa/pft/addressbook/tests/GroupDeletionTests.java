@@ -19,15 +19,14 @@ public class GroupDeletionTests extends TestBase {
   @Test
   public void testGroupDeletion() throws Exception {
     List<GroupData> before = app.group().list();
+    int index = before.size() - 1;
 
-    app.group().select(before.size() - 1);
-    app.group().deleteSelected();
-    app.goTo().groupPage();
+    app.group().delete(index);
 
     List<GroupData> after = app.group().list();
     Assert.assertEquals(after.size(), before.size() - 1);
 
-    before.remove(before.size() - 1);
+    before.remove(index);
     Assert.assertEquals(before, after);
 
   }

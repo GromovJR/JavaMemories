@@ -99,4 +99,10 @@ public class ContactHelper extends HelperBase {
         }
         return contacts;
     }
+
+    public void delete() {
+        select();
+        deleteSelected();
+        goToHomePage();
+    }
 }
