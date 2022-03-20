@@ -1,24 +1,19 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
-
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactCreationTests extends TestBase {
 
-  @Test(enabled = true)
+  @Test
   public void testContactCreation() throws Exception {
     Contacts before = app.contact().all();
+    //File photo = new File("src/test/resources/logo.png");
     ContactData contact = new ContactData()
             .withFirstname("Firstname").withLastname("Lastname")
             .withAddress("Address").withMobilePhone("MobilePhone")
