@@ -23,11 +23,10 @@ public class ContactCreationTests extends TestBase {
             .withFirstname("Firstname").withLastname("Lastname")
             .withAddress("Address").withMobilePhone("MobilePhone")
             .withEmail("Email").withGroup("Test1");
-
     app.contact().create(contact, true);
-    Contacts after = app.contact().all();
 
-    Assert.assertEquals(after.size(), before.size() + 1);
+    Assert.assertEquals(app.contact().getCount(), before.size() + 1);
+    Contacts after = app.contact().all();
     assertThat(after, equalTo(
             before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
   }
