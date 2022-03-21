@@ -7,20 +7,4 @@
     <email>0mail@mail.com</email>
     <group>Test1</group>
   </contact>
-  <contact>
-    <firstname>FirstName1</firstname>
-    <lastname>LastName1</lastname>
-    <address>Address1</address>
-    <mobilePhone>8978123121</mobilePhone>
-    <email>1mail@mail.com</email>
-    <group>Test1</group>
-  </contact>
-  <contact>
-    <firstname>FirstName2</firstname>
-    <lastname>LastName2</lastname>
-    <address>Address2</address>
-    <mobilePhone>8978123122</mobilePhone>
-    <email>2mail@mail.com</email>
-    <group>Test1</group>
-  </contact>
 </list>

@@ -4,14 +4,4 @@
     <header>GroupHeader 0</header>
     <footer>GroupFooter 0</footer>
   </group>
-  <group>
-    <name>GroupName 1</name>
-    <header>GroupHeader 1</header>
-    <footer>GroupFooter 1</footer>
-  </group>
-  <group>
-    <name>GroupName 2</name>
-    <header>GroupHeader 2</header>
-    <footer>GroupFooter 2</footer>
-  </group>
 </list>
