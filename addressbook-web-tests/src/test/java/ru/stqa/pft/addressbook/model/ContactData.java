@@ -6,7 +6,9 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import jakarta.persistence.*;
 
 import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @XStreamAlias("contact")
 @Entity
@@ -18,37 +20,53 @@ public class ContactData {
     @Id
     @Column(name= "id")
     private int id = Integer.MAX_VALUE;
+
     @Expose
     @Column(name= "firstname")
     private String firstname;
+
     @Expose
     @Column(name= "lastname")
     private String lastname;
+
     @Expose
     @Column(name= "address")
     private String address;
+
     @Expose
     @Column(name= "mobile")
     private String mobilePhone;
+
     @Column(name= "home")
     private String homePhone;
+
     @Column(name= "work")
     private String workPhone;
+
     @Transient
     private String allPhones;
+
     @Expose
     @Column(name= "email")
     private String email;
+
     @Column(name= "email2")
     private String email2;
+
     @Column(name= "email3")
     private String email3;
+
     @Transient
     private String allEmails;
-    @Transient
-    private String group;
+
     @Transient
     private String photo;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "address_in_groups"
+            , joinColumns = @JoinColumn(name = "id")
+            , inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<GroupData> groups = new HashSet<>();
 
     public int getId() {
         return id;
@@ -158,13 +176,8 @@ public class ContactData {
         return this;
     }
 
-    public String getGroup() {
-        return group;
-    }
-
-    public ContactData withGroup(String group) {
-        this.group = group;
-        return this;
+    public Groups getGroups() {
+        return new Groups(groups);
     }
 
     public File getPhoto() {
@@ -173,6 +186,11 @@ public class ContactData {
 
     public ContactData withPhoto(File photo) {
         this.photo = photo.getPath();
+        return this;
+    }
+
+    public ContactData inGroup (GroupData group) {
+        groups.add(group);
         return this;
     }
 
