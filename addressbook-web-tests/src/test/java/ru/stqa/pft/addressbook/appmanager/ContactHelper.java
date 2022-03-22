@@ -176,4 +176,30 @@ public class ContactHelper extends HelperBase {
         List<WebElement> cells = row.findElements(By.tagName("td"));
         cells.get(7).findElement(By.tagName("a")).click();
     }
+
+    public void removeFromGroup(ContactData contact, GroupData group) {
+        selectGroupToRemoveByName(group);
+        selectById(contact.getId());
+        removeGroup();
+        contactCache = null;
+    }
+
+    private void selectGroupToRemoveByName(GroupData group) {
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
+    }
+
+    private void selectGroupToAdditionByName(GroupData group) {
+        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(group.getName());
+    }
+
+    private void removeGroup() {
+        click(By.xpath("//input[@name='remove']"));
+    }
+
+    public void addToGroup(ContactData contact, GroupData group) {
+        goToHomePage();
+        selectById(contact.getId());
+        selectGroupToAdditionByName(group);
+        click(By.xpath("//input[@name='add']"));
+    }
 }

@@ -23,6 +23,7 @@ public class Contacts extends ForwardingSet<ContactData> {
         this.delegate = new HashSet<ContactData>(contacts);
     }
 
+
     @Override
     protected Set<ContactData> delegate() {
         return delegate;
@@ -39,4 +40,26 @@ public class Contacts extends ForwardingSet<ContactData> {
         contacts.remove(contact);
         return contacts;
     }
+
+    public static ContactData getContactWithGroup(Contacts contacts) {
+        ContactData contactWithGroup = null;
+        for (ContactData contact : contacts) {
+            if (contact.getGroups().size() > 0) {
+                contactWithGroup = contact;
+            }
+        }
+        return contactWithGroup;
+    }
+
+    public ContactData getInfoOnContact(ContactData contact) {
+        ContactData contactForAddition = null;
+        for (ContactData allContacts : delegate) {
+            if (allContacts.getId() ==contact.getId() ) {
+                contactForAddition = allContacts;
+                break;
+            }
+        }
+        return contactForAddition;
+    }
+
 }
