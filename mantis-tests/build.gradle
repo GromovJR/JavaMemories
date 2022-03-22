@@ -1,0 +1,40 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.testng:testng:7.4.0'
+    implementation 'org.seleniumhq.selenium:selenium-java:4.0.0-beta-4'
+    implementation 'org.hamcrest:hamcrest:2.2'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.13'
+    implementation 'com.beust:jcommander:1.81'
+    implementation 'com.thoughtworks.xstream:xstream:1.4.18'
+    implementation 'com.google.code.gson:gson:2.8.8'
+    implementation 'mysql:mysql-connector-java:8.0.26'
+    implementation 'org.hibernate:hibernate-core:6.0.0.Alpha9'
+    implementation 'commons-net:commons-net:20030805.205232'
+    implementation 'org.subethamail:subethasmtp:3.1.7'
+    implementation 'ru.lanwen.verbalregex:java-verbal-expressions:1.8'
+}
+
+test {
+    useTestNG()
+}
+
+/* test {
+    useTestNG {
+        suites 'src/test/resources/testng.xml'
+    }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser', "${browser}"
+    }
+    if (project.hasProperty('target')) {
+        systemProperty 'target', "${target}"
+    }
+
+    if (project.hasProperty('verifyUI')) {
+        systemProperty 'verifyUI', "${target}"
+    }
+} */
