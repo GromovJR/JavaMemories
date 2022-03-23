@@ -6,6 +6,10 @@ repositories {
     mavenCentral()
 }
 
+test {
+	useTestNG()
+}
+
 dependencies {
     implementation 'org.testng:testng:7.5'
 }
