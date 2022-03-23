@@ -5,9 +5,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.jayway.restassured.RestAssured;
-import org.apache.http.client.fluent.Executor;
-import org.apache.http.client.fluent.Request;
-import org.apache.http.message.BasicNameValuePair;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -23,7 +20,7 @@ public class RestAssuredTests {
     RestAssured.authentication = RestAssured.basic("288f44776e7bec4bf44fdfeb1e646490","");
   }
 
-  @Test
+  @Test(enabled = false)
   public void testCreateIssue() throws IOException {
     Set<Issue> oldIssues = getIssues();
     Issue newIssue = new Issue().withSubject("Test issue").withDescription("New test issue");
@@ -32,6 +29,7 @@ public class RestAssuredTests {
     oldIssues.add(newIssue.withId(issueId));
     assertEquals(newIssues, oldIssues);
   }
+
 
   private Set<Issue> getIssues() throws IOException {
     String json = RestAssured.get("https://bugify.stqa.ru/api/issues.json").asString();
