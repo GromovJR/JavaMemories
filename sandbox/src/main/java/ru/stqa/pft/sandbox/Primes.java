@@ -1,7 +1,5 @@
 package ru.stqa.pft.sandbox;
 
-import java.util.WeakHashMap;
-
 public class Primes {
 
     public static boolean isPrime(int n) {

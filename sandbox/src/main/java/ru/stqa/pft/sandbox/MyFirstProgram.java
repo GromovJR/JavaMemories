@@ -1,7 +1,5 @@
 package ru.stqa.pft.sandbox;
 
-import javax.sound.midi.Soundbank;
-
 public class MyFirstProgram {
 	public static void main(String[] args) {
 		hello("world");
