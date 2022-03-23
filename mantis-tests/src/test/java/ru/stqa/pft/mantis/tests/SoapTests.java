@@ -15,7 +15,8 @@ import static org.testng.Assert.assertEquals;
 public class SoapTests extends TestBase {
 
   @Test
-  public void testGetProjects() throws MalformedURLException, ServiceException, RemoteException {
+  public void testGetProjects() throws MalformedURLException, ServiceException, RemoteException, com.google.protobuf.ServiceException {
+    skipIfNotFixed(1);
     Set<Project> projects = app.soap().getProjects();
     System.out.println(projects.size());
     for (Project project : projects) {
