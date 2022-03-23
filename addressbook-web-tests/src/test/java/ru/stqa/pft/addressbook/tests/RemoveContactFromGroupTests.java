@@ -23,14 +23,25 @@ public class RemoveContactFromGroupTests extends TestBase{
             app.group().create(new GroupData().withName("TestName1").withHeader("TestHeader1").withFooter("TestFooter1"));
         }
         Groups updatedGroups = app.db().groups();
+        ContactData before = getContactWithGroup(app.db().contacts());
 
-        if (app.contact().all().size() == 0) {
+        if (app.contact().all().size() == 0 ) {
             app.goTo().homePage();
             app.contact().create(new ContactData()
                     .withFirstname("NewName")
                     .withLastname("NewLastname")
                     .withAddress("NewAddress")
                     .inGroup(updatedGroups.iterator().next()),
+                    true);
+        }
+
+        if (before == null) {
+            app.goTo().homePage();
+            app.contact().create(new ContactData()
+                            .withFirstname("NewName")
+                            .withLastname("NewLastname")
+                            .withAddress("NewAddress")
+                            .inGroup(updatedGroups.iterator().next()),
                     true);
         }
     }
