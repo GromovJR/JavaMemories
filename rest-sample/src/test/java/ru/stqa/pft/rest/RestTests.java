@@ -27,8 +27,4 @@ public class RestTests extends TestBase {
     skipIfNotFixed(3);
 
   }
-
-
-
-
 }
