@@ -1,7 +1,6 @@
 package ru.stqa.pft.github;
 
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableMultimap;
 import com.jcabi.github.*;
 import org.testng.annotations.Test;
 
