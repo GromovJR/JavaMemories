@@ -16,7 +16,7 @@ public class DistanceCalcTests {
     public void secondTest () {
         Point A = new Point(1, 4);
         Point B = new Point(2, 5);
-        Assert.assertEquals(A.distance(B), 12);
-      //  Assert.assertEquals(A.distance(B), 1.4142135623730951);
+        //Assert.assertEquals(A.distance(B), 12);
+        Assert.assertEquals(A.distance(B), 1.4142135623730951);
     }
 }
