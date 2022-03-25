@@ -3,6 +3,8 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import java.util.Properties;
+
 public class NavigationHelper extends HelperBase{
 
     public NavigationHelper(WebDriver wd) {
@@ -23,5 +25,9 @@ public class NavigationHelper extends HelperBase{
             return;
         }
         click(By.linkText("home"));
+    }
+
+    public void startPage() {
+        wd.get("http://localhost/addressbook/index.php");
     }
 }

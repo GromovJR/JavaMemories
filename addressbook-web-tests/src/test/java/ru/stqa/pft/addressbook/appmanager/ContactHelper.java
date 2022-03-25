@@ -49,8 +49,9 @@ public class ContactHelper extends HelperBase {
        // click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td/input"));
     }
 
-    public void selectById(int id) {
-        wd.findElement(By.cssSelector("input[value= '" + id + "']")).click();
+    public ContactData selectById(int id) {
+        wd.findElement(By.xpath("//input[@value='" + id + "']")).click();
+        return null;
     }
 
     public void deleteSelected() {
@@ -175,29 +176,67 @@ public class ContactHelper extends HelperBase {
         cells.get(7).findElement(By.tagName("a")).click();
     }
 
-    public void removeFromGroup(ContactData contact, GroupData group) {
+    public void removeFromGroupByName(ContactData contact, GroupData group) {
         selectGroupToRemoveByName(group);
         selectById(contact.getId());
         removeGroup();
-        contactCache = null;
+        goToHomePage();
+        selectAll();
     }
 
-    private void selectGroupToRemoveByName(GroupData group) {
+    public void removeFromGroupById(ContactData contact, GroupData group) {
+        selectGroupToRemoveById(group.getId());
+        selectById(contact.getId());
+        removeGroup();
+    }
+
+    public void selectAll() {
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText("[all]");
+
+    }
+
+    public void selectGroupToRemoveByName(GroupData group) {
         new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
     }
 
-    private void selectGroupToAdditionByName(GroupData group) {
+    public void selectGroupToRemoveById(int id) {
+        wd.findElement(By.xpath("//select[@name='group']//option[@value='" + id + "']")).click();
+    }
+
+    public void selectGroupToAdditionByName(GroupData group) {
         new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(group.getName());
     }
 
-    private void removeGroup() {
+    public void removeGroup() {
         click(By.xpath("//input[@name='remove']"));
     }
 
     public void addToGroup(ContactData contact, GroupData group) {
         goToHomePage();
         selectById(contact.getId());
-        selectGroupToAdditionByName(group);
-        click(By.xpath("//input[@name='add']"));
+        selectGroupById(group.getId());
+        addTo();
+    }
+
+    private void addTo() {
+        wd.findElement(By.name("add")).click();
+    }
+
+    private void selectContactsFromAllGroups() {
+        wd.findElement(By.xpath("//select[@name='group']")).click();
+        wd.findElement(By.xpath("//select[@name='group']//option[@value='']")).click();
+    }
+
+    private void selectGroupById(int id) {
+        wd.findElement(By.xpath("//select[@name='to_group']//option[@value='" + id + "']")).click();
+
+    }
+
+    public void selectThisGroup(int id) {
+        wd.findElement(By.xpath("//select[@name='group']//option[@value='" + id + "']")).click();
+    }
+
+    public void selectNone() {
+        wd.findElement(By.xpath("//option[@value='[none]']']")).click();
     }
 }
