@@ -44,10 +44,6 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//div[@id='content']/form/input[21]"));
     }
 
-    public void select(int index) {
-        wd.findElements(By.xpath("//table[@id='maintable']/tbody/tr[2]/td/input")).get(index).click();
-       // click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td/input"));
-    }
 
     public ContactData selectById(int id) {
         wd.findElement(By.xpath("//input[@value='" + id + "']")).click();
@@ -59,10 +55,6 @@ public class ContactHelper extends HelperBase {
         wd.switchTo().alert().accept();
     }
 
-    public void initModification() {
-        //wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
-        click(By.xpath("//img[@alt='Edit']"));
-    }
 
     public void submitModification() {
         click(By.name("update"));
@@ -72,10 +64,6 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("home"));
     }
 
-    public boolean tryToSearch() {
-        return isElementPresent(By.name("selected[]"));
-
-    }
 
     public int getCount() {
         return wd.findElements(By.name("selected[]")).size();
@@ -107,22 +95,6 @@ public class ContactHelper extends HelperBase {
         goToHomePage();
     }
 
-    public List<ContactData> list() {
-        List<ContactData> contacts = new ArrayList<>();
-        List<WebElement> elements = wd.findElements(By.name("entry"));
-        for (WebElement element : elements) {
-            List<WebElement> cells = element.findElements(By.tagName("td"));
-            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
-            String lastname = cells.get(1).getText();
-            String firstname = cells.get(2).getText();
-            ContactData contact = new ContactData()
-                    .withId(id)
-                    .withFirstname(firstname)
-                    .withLastname(lastname);
-            contacts.add(contact);
-        }
-        return contacts;
-    }
 
     private Contacts contactCache = null;
 
@@ -184,12 +156,6 @@ public class ContactHelper extends HelperBase {
         selectAll();
     }
 
-    public void removeFromGroupById(ContactData contact, GroupData group) {
-        selectGroupToRemoveById(group.getId());
-        selectById(contact.getId());
-        removeGroup();
-    }
-
     public void selectAll() {
         new Select(wd.findElement(By.name("group"))).selectByVisibleText("[all]");
 
@@ -199,13 +165,6 @@ public class ContactHelper extends HelperBase {
         new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
     }
 
-    public void selectGroupToRemoveById(int id) {
-        wd.findElement(By.xpath("//select[@name='group']//option[@value='" + id + "']")).click();
-    }
-
-    public void selectGroupToAdditionByName(GroupData group) {
-        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(group.getName());
-    }
 
     public void removeGroup() {
         click(By.xpath("//input[@name='remove']"));
@@ -222,11 +181,6 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.name("add")).click();
     }
 
-    private void selectContactsFromAllGroups() {
-        wd.findElement(By.xpath("//select[@name='group']")).click();
-        wd.findElement(By.xpath("//select[@name='group']//option[@value='']")).click();
-    }
-
     private void selectGroupById(int id) {
         wd.findElement(By.xpath("//select[@name='to_group']//option[@value='" + id + "']")).click();
 
@@ -237,6 +191,6 @@ public class ContactHelper extends HelperBase {
     }
 
     public void selectNone() {
-        wd.findElement(By.xpath("//option[@value='[none]']']")).click();
+        wd.findElement(By.xpath("//option[@value='[none]']")).click();
     }
 }

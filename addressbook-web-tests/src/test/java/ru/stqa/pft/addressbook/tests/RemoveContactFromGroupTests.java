@@ -32,12 +32,13 @@ public class RemoveContactFromGroupTests extends TestBase{
                     .withFirstname("NewName")
                     .withLastname("NewLastname")
                     .withAddress("NewAddress")
+                    .inGroup(groups.iterator().next())
                     ,true);
         }
     }
 
     @Test(enabled = false)
-    public void testContactRemove1() {
+    public void testContactRemove() {
         app.goTo().homePage();
         ContactData before = getContactWithGroup(app.db().contacts());
         Groups groupsBefore = before.getGroups();
@@ -51,41 +52,4 @@ public class RemoveContactFromGroupTests extends TestBase{
 
     }
 
-
-    @Test(enabled = true)
-    public void DeleteContactFromGroup(){
-        app.goTo().homePage();
-        ContactData contact = selectContact();
-        app.goTo().startPage();
-        GroupData groupForDeletion = selectedGroup(contact);
-        Groups before = contact.getGroups();
-        app.goTo().homePage();
-        app.contact().removeFromGroupById(contact, groupForDeletion);
-        ContactData contactsAfter = selectContactById(contact);
-        Groups after = contactsAfter.getGroups();
-        assertThat(after, equalTo(before.without(groupForDeletion)));
-    }
-
-    public ContactData selectContactById(ContactData contact) {
-        Contacts contactById = app.db().contacts();
-        return contactById.iterator().next().withId(contact.getId());
-    }
-
-    private GroupData selectedGroup(ContactData contactForDel) {
-        ContactData con = selectContactById(contactForDel);
-        Groups deletedContact = con.getGroups();
-        return deletedContact.iterator().next();
-    }
-
-    private ContactData selectContact() {
-        Contacts contacts = app.db().contacts();
-        for (ContactData contact : contacts){
-            if (contact.getGroups().size()>0){
-                return contact;
-            }
-        }
-        ContactData addContact = app.db().contacts().iterator().next();
-        app.contact().addToGroup(addContact, app.db().groups().iterator().next());
-        return addContact;
-    }
 }
