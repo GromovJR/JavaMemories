@@ -1,14 +1,10 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
-import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
-
-import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItem;
@@ -37,13 +33,14 @@ public class RemoveContactFromGroupTests extends TestBase{
         }
     }
 
-    @Test(enabled = false)
+    @Test
     public void testContactRemove() {
         app.goTo().homePage();
         ContactData before = getContactWithGroup(app.db().contacts());
         Groups groupsBefore = before.getGroups();
         GroupData groupToDelete = before.getGroups().iterator().next();
-        app.contact().removeFromGroupByName(before, groupToDelete);
+
+        app.contact().removeFromGroup(before, groupToDelete);
         ContactData after = app.db().contacts().getInfoOnContact(before);
         Groups groupsAfter = after.getGroups();
 

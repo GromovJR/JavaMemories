@@ -9,7 +9,6 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ContactHelper extends HelperBase {
@@ -148,12 +147,11 @@ public class ContactHelper extends HelperBase {
         cells.get(7).findElement(By.tagName("a")).click();
     }
 
-    public void removeFromGroupByName(ContactData contact, GroupData group) {
-        selectGroupToRemoveByName(group);
+    public void removeFromGroup(ContactData contact, GroupData group) {
+        selectGroupToRemove(group.getId());
         selectById(contact.getId());
         removeGroup();
         goToHomePage();
-        selectAll();
     }
 
     public void selectAll() {
@@ -161,8 +159,8 @@ public class ContactHelper extends HelperBase {
 
     }
 
-    public void selectGroupToRemoveByName(GroupData group) {
-        new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
+    public void selectGroupToRemove(int id) {
+        wd.findElement(By.xpath("//select[@name='group']//option[@value='" + id + "']")).click();
     }
 
 
@@ -173,7 +171,7 @@ public class ContactHelper extends HelperBase {
     public void addToGroup(ContactData contact, GroupData group) {
         goToHomePage();
         selectById(contact.getId());
-        selectGroupById(group.getId());
+        selectGroupToAddition(group.getId());
         addTo();
     }
 
@@ -181,7 +179,7 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.name("add")).click();
     }
 
-    private void selectGroupById(int id) {
+    private void selectGroupToAddition(int id) {
         wd.findElement(By.xpath("//select[@name='to_group']//option[@value='" + id + "']")).click();
 
     }
