@@ -7,10 +7,7 @@ import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
 import static ru.stqa.pft.addressbook.model.Contacts.getContactWithGroup;
 
 public class RemoveContactFromGroupTests extends TestBase{

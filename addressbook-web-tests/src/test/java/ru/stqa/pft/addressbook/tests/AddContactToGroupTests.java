@@ -12,8 +12,8 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertTrue;
 
 public class AddContactToGroupTests extends TestBase{
 
@@ -38,6 +38,22 @@ public class AddContactToGroupTests extends TestBase{
     }
 
     @Test(enabled = true)
+    public void testAddContactToGroup1() {
+      GroupData group = app.db().groups().iterator().next();
+      ContactData contact = selectedContact();
+      Groups before = contact.getGroups();
+      GroupData groupForAdd = selectedGroup(contact);
+
+      app.goTo().homePage();
+      app.contact().selectThisGroup(group.getId());
+      app.contact().addToGroup(contact, groupForAdd);
+      Groups after = app.db().getContact(contact.getId()).getGroups();
+      assertThat(after, equalTo(before.withAdded(groupForAdd)));
+      assertTrue(contact.getGroups().contains(group));
+    }
+
+    //Тест оформлен неправильно, нельзя ветвить код.
+    @Test(enabled = false)
     public void testAddContactToGroup() {
         ContactData contact = app.db().contacts().iterator().next();
         GroupData group = app.db().groups().iterator().next();
@@ -48,7 +64,7 @@ public class AddContactToGroupTests extends TestBase{
             GroupData groupToAddition = selectedGroup(contact);
             app.contact().addToGroup(contact, groupToAddition);
             app.db().refresh(contact);
-            Assert.assertTrue(contact.getGroups().contains(groupToAddition));
+            assertTrue(contact.getGroups().contains(groupToAddition));
             System.out.println("Групп у контакта до добавления -" + beforeSize + ". После добавления - " + contact.getGroups().size());
             assertThat(beforeSize + 1, equalTo(contact.getGroups().size()));
 
@@ -57,7 +73,7 @@ public class AddContactToGroupTests extends TestBase{
             app.contact().selectThisGroup(contact.getGroups().iterator().next().getId());
             app.contact().addToGroup(contact, group);
             app.db().refresh(contact);
-            Assert.assertTrue(contact.getGroups().contains(group));
+            assertTrue(contact.getGroups().contains(group));
             System.out.println("Групп у контакта до добавления -" + beforeSize + ". После добавления - " + contact.getGroups().size());
             assertThat(beforeSize + 1 , equalTo(contact.getGroups().size()));
         }
@@ -73,6 +89,16 @@ public class AddContactToGroupTests extends TestBase{
             actualFreeGroups.removeAll(contact.getGroups());
             return actualFreeGroups.iterator().next();
         } else return freeGroups.iterator().next();
-
     }
+
+    public ContactData selectedContact() {
+    Contacts contacts = app.db().contacts();
+    Groups groups = app.db().groups();
+    for (ContactData contact : contacts) {
+      if (contact.getGroups().size() < groups.size()) {
+        return contact;
+      }
+    }
+    return contacts.iterator().next();
+  }
 }
