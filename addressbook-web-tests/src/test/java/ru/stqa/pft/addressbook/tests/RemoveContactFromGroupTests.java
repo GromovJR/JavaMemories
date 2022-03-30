@@ -28,6 +28,16 @@ public class RemoveContactFromGroupTests extends TestBase{
                     .inGroup(groups.iterator().next())
                     ,true);
         }
+
+        if (getContactWithGroup(app.db().contacts()) == null ) {
+            app.goTo().homePage();
+            app.contact().create(new ContactData()
+                            .withFirstname("NewName")
+                            .withLastname("NewLastname")
+                            .withAddress("NewAddress")
+                            .inGroup(groups.iterator().next())
+                    ,true);
+        }
     }
 
     @Test
@@ -41,9 +51,9 @@ public class RemoveContactFromGroupTests extends TestBase{
         ContactData after = app.db().contacts().getInfoOnContact(before);
         Groups groupsAfter = after.getGroups();
 
+        System.out.println("Групп у контакта до удаления -" + groupsBefore.size() + ". После удаления - " + groupsAfter.size());
         assertThat(groupsAfter.size(), equalTo(groupsBefore.size() - 1));
         assertThat(groupsAfter, equalTo(groupsBefore.without(groupToDelete)));
-
     }
 
 }
